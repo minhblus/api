@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        .textbox {
+            font-size: 20px;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .textbox:focus {
+            outline: none;
+            border-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="keyInput" class="textbox" readonly onclick="copyToClipboard()" />
+        <p id="message" style="color: green; display: none;">Đã sao chép!</p>
+    </div>
+
+    <script>
+        // Lấy giá trị `key` từ URL
+        const params = new URLSearchParams(window.location.search);
+        const key = params.get('key') || 'Không có key';
+
+        // Hiển thị key trong textbox
+        const keyInput = document.getElementById('keyInput');
+        keyInput.value = key;
+
+        // Chức năng sao chép khi click vào textbox
+        function copyToClipboard() {
+            keyInput.select();
+            document.execCommand("copy");
+            
+            // Hiển thị thông báo
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+            setTimeout(() => message.style.display = 'none', 2000);
+        }
+    </script>
+</body>
+</html>
